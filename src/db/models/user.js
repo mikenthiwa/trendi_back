@@ -15,14 +15,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isEmail: true,
-      }
+      },
     },
     role: {
       type: DataTypes.ENUM('brand', 'influencer'),
       default: 'influencer',
       allowNull: false,
-    }
+    },
   });
-  User.hasMany(sequelize.models.Campaign)
+  User.hasMany(sequelize.models.Campaign, {
+    foreignKey: 'userId',
+    as: 'campaigns',
+  });
   return User;
-}
+};

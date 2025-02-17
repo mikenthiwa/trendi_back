@@ -1,6 +1,7 @@
+import CampaignRoute from './campaign';
 const apiPrefix = '/api/v1';
 
-const routes = [];
+const routes = [CampaignRoute];
 
 export default (app) => {
   routes.forEach((route) => {
