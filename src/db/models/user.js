@@ -1,35 +1,28 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../models';
-
-const User = sequelize.define('User', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  username: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    unique: true,
-  },
-  role: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-    validate: {
-      isIn: [['influencer', 'brand']],
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncreament: true,
     },
-  },
-});
-
-User.associate = (models) => {
-  User.hasMany(models.Campaign, {
-    foreignKey: 'brandId',
-    as: 'campaigns',
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isEmail: true,
+      }
+    },
+    role: {
+      type: DataTypes.ENUM('brand', 'influencer'),
+      default: 'influencer',
+      allowNull: false,
+    }
   });
-};
-
-export default User;
+  User.hasMany(sequelize.models.Campaign)
+  return User;
+}

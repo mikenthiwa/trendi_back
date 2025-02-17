@@ -1,48 +1,44 @@
-'use strict';
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('campaign_submissions', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('CampaignSubmissions', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
         type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true,
       },
       campaignId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
           model: 'Campaigns',
           key: 'id',
+          onDelete: 'CASCADE',
         },
-        onDelete: 'CASCADE',
       },
       influencerId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
           model: 'Users',
           key: 'id',
+          onDelete: 'CASCADE',
         },
-        onDelete: 'CASCADE',
       },
       status: {
-        type: Sequelize.STRING(50),
-        allowNull: false,
+        type: Sequelize.ENUM('pending', 'approved', 'rejected'),
         defaultValue: 'pending',
+        allowNull: false,
       },
       createdAt: {
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
       updatedAt: {
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('campaign_submissions');
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('CampaignSubmissions');
   },
 };

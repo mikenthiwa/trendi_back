@@ -1,13 +1,11 @@
-'use strict';
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('campaign_guidelines', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('CampaignGuidelines', {
       id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
       },
       campaignId: {
         type: Sequelize.INTEGER,
@@ -20,20 +18,23 @@ module.exports = {
       },
       content: {
         type: Sequelize.ARRAY(Sequelize.STRING),
-        allowNull: false,
         defaultValue: [],
+        allowNull: false,
+        validate: {
+          isArray: true,
+        },
       },
       createdAt: {
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
       updatedAt: {
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
       },
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('campaign_guidelines');
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('CampaignGuidelines');
   },
 };
