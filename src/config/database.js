@@ -1,4 +1,5 @@
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.config();
 const { DATABASE_DIALECT, DATABASE_URL } = process.env;
@@ -25,4 +26,4 @@ const database = {
   },
 };
 
-export default database;
+module.exports = database;

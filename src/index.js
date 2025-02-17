@@ -1,8 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
-import db from './db/models';
+import module from './modules';
 
 dotenv.config();
 
@@ -13,6 +12,8 @@ const PORT = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// app.use(routes);
+module(app);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Trendi API' });
@@ -27,9 +28,9 @@ app.use((err, req, res) => {
 
 app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
-  try {
-    await db.sequelize.sync();
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
+  // try {
+  //   await db.sequelize.sync();
+  // } catch (error) {
+  //   console.error('Unable to connect to the database:', error);
+  // }
 });
