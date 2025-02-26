@@ -10,6 +10,35 @@ export class CampaignController {
       const { count, rows } = await models.Campaign.findAndCountAll({
         limit,
         offset,
+        include: [
+          {
+            model: models.User,
+            as: 'brand',
+            attributes: ['email', 'firstName', 'lastName'],
+          },
+          {
+            model: models.CampaignGuideline,
+            as: 'campaignGuideline',
+            attributes: ['content'],
+          },
+          {
+            model: models.CampaignSubmission,
+            as: 'campaignSubmission',
+            attributes: ['status'],
+            include: [
+              {
+                model: models.User,
+                as: 'influencer',
+                attributes: ['firstName', 'lastName'],
+              },
+              {
+                model: models.CampaignVideo,
+                as: 'campaignVideo',
+                attributes: ['title', 'videoUrls'],
+              },
+            ],
+          },
+        ],
       });
       return Response(res, 200, 'Success', rows, count);
     } catch (error) {
