@@ -37,10 +37,12 @@ module.exports = (sequelize, DataTypes) => {
     CampaignSubmission.belongsTo(models.User, {
       foreignKey: 'influencerId',
       onDelete: 'CASCADE',
+      as: 'influencer',
     });
     CampaignSubmission.hasMany(models.CampaignVideo, {
       foreignKey: 'campaignSubmissionId',
       onDelete: 'CASCADE',
+      as: 'campaignVideo',
     });
   };
   return CampaignSubmission;

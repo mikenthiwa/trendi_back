@@ -2,12 +2,6 @@ module.exports = (sequelize, DataTypes) => {
   const CampaignGuideline = sequelize.define(
     'CampaignGuideline',
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncreament: true,
-        allowNull: false,
-      },
       campaignId: {
         type: DataTypes.INTEGER,
         references: {

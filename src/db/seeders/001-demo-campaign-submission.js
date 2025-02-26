@@ -1,7 +1,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     // First, create campaign submissions
-    const submissions = await queryInterface.bulkInsert(
+    await queryInterface.bulkInsert(
       'CampaignSubmissions',
       [
         {
@@ -25,9 +25,9 @@ module.exports = {
     // Then, create campaign videos for the approved submission
     await queryInterface.bulkInsert('CampaignVideos', [
       {
-        CampaignSubmissionId: 3, // First submission (approved)
+        campaignSubmissionId: 45, // First submission (approved)
         title: 'Summer Fashion Showcase',
-        videoUrls: ['https://example.com/video1', 'https://example.com/video2'],
+        videoUrls: ['https://www.youtube.com/watch?v=rRwMBUL7zyw&list=PLURaeuNWMwdwbpIc0ioy7R_HEInCFUHPU&index=9'],
         createdAt: new Date(),
         updatedAt: new Date(),
       },
